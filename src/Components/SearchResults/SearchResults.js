@@ -1,5 +1,5 @@
 import React from "react";
-import TrackList from "../Tracklist";
+import TrackList from "../TrackList/TrackList";
 import './SearchResults.css';
 
 export default function SearchResults() {
