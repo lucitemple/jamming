@@ -3,7 +3,7 @@ import TrackList from "../TrackList/TrackList.js";
 import "./Playlist.css";
 
 export default class Playlist extends React.Component {
-  conststructor(props) {
+  constructor(props) {
     super(props);
      this.handleNameChange = this.handleNameChange.bind(this);
   }
@@ -19,7 +19,7 @@ export default class Playlist extends React.Component {
           onRemove={this.props.onRemove}
           isRemoval={true}
         />
-        <button className="Playlist-save">SAVE TO SPOTIFY</button>
+        <button className="Playlist-save" onClick={this.props.onSave}>SAVE TO SPOTIFY</button>
       </div>
     );
   }
