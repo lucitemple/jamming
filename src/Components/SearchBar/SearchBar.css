@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 6.94rem;
-  margin-bottom: 6.33rem;
+  padding-top: 4rem;
+  margin-bottom: 4rem;
 }
 
 .SearchBar input {
