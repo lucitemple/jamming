@@ -44,16 +44,16 @@ class App extends React.Component {
 
   savePlaylist() {
     let trackUris = this.state.playlistTracks.map((track) => track.uri);
-    //if (trackUris && trackUris.length) {
+    if (trackUris && trackUris.length) {
       Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
         this.setState({
           playlistName: "New Playlist",
           playlistTracks: [],
         });
       });
-    /* } else {
-      alert("Playlist empty");
-    } */
+    } else {
+      alert("Your playlist is empty! Please add tracks.");
+    }
   }
 
   search(term) {
