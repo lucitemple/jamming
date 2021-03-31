@@ -3,40 +3,17 @@ import "./App.css";
 import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
-import Spotify  from "../../util/Spotify";
-
+import Spotify from "../../util/Spotify";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchResults: [
-        { name: "name1", artist: "artist1", album: "album1", id: 1 },
-        { name: "name2", artist: "artist2", album: "album2", id: 2 },
-        { name: "name3", artist: "artist3", album: "album3", id: 3 },
-      ],
-      playlistName: "Playlist Name",
-      playlistTracks: [
-        {
-          name: "playlistName1",
-          artist: "playlistartist4",
-          album: "album4",
-          id: 4,
-        },
-        {
-          name: "playlistName3",
-          artist: "playlistartist5",
-          album: "album5",
-          id: 5,
-        },
-        {
-          name: "playListName3",
-          artist: "playlist artist6",
-          album: "album6",
-          id: 6,
-        },
-      ],
+      searchResults: [],
+      playlistName: "My Playlist",
+      playlistTracks: [],
+      //term: ""
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
@@ -56,7 +33,7 @@ class App extends React.Component {
 
   removeTrack(track) {
     let tracks = this.state.playlistTracks.filter(
-      (savedTrack) => track.id !== savedTrack.id
+      (currentTrack) => track.id !== currentTrack.id
     );
     this.setState({ playlistTracks: tracks });
   }
@@ -66,7 +43,17 @@ class App extends React.Component {
   }
 
   savePlaylist() {
-    let trackURIs = this.state.playlistTracks.map((track) => track.uri);
+    let trackUris = this.state.playlistTracks.map((track) => track.uri);
+    if (trackUris && trackUris.length) {
+      Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
+        this.setState({
+          playlistName: "New Playlist",
+          playlistTracks: [],
+        });
+      });
+    } else {
+      alert("Playlist empty");
+    }
   }
 
   search(term) {
@@ -86,6 +73,7 @@ class App extends React.Component {
           <div className="App-playlist">
             <SearchResults
               searchResults={this.state.searchResults}
+              onSearch={this.search}
               onAdd={this.addTrack}
             />
             <Playlist
