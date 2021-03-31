@@ -11,7 +11,7 @@ class App extends React.Component {
 
     this.state = {
       searchResults: [],
-      playlistName: "My Playlist",
+      playlistName: "New Playlist Name",
       playlistTracks: [],
       //term: ""
     };
@@ -47,7 +47,7 @@ class App extends React.Component {
     if (trackUris && trackUris.length) {
       Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
         this.setState({
-          playlistName: "New Playlist",
+          playlistName: "New Playlist Name",
           playlistTracks: [],
         });
       });
