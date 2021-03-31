@@ -1,6 +1,6 @@
 let accessToken;
 const clientId = "c3f7f34cdf5c4f3e831b91ca134bc6d1";
-const redirectUri = "https://lucitemple.github.io/jamming/callback/"; // Must match spotify app setting exactly & include trailing slash (and callback?).
+const redirectUri = "https://lucitemple.github.io/jamming/"; // Must match spotify app setting exactly & include trailing slash (and callback?).
 
 const Spotify = {
   getAccessToken() {
