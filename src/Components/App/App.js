@@ -87,6 +87,11 @@ class App extends React.Component {
       </div>
     );
   }
+  componentDidMount() {
+    window.addEventListener("load", () => {
+      Spotify.getAccessToken();
+    });
+  }
 }
 
 export default App;
