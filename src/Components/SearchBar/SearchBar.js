@@ -11,7 +11,6 @@ export default class SearchBar extends React.Component {
     this.handleTermChange = this.handleTermChange.bind(this);
   }
   search() {
-        //event.preventDefault();
     this.props.onSearch(this.state.term);
   }
   handleTermChange(event) {
