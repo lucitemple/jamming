@@ -2,8 +2,6 @@ let accessToken;
 const clientId = `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`;
 const redirectUri = "https://lucitemple.github.io/jamming/"; // Must match spotify app setting exactly & include trailing slash.
 
-console.log(clientId);
-
 const Spotify = {
   getAccessToken() {
     if (accessToken) {
