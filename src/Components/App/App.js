@@ -87,11 +87,12 @@ class App extends React.Component {
       </div>
     );
   }
-  componentDidMount() {
+  // This forces login to Spotify on mount, to prevent the search loading issue.
+/*   componentDidMount() {
     window.addEventListener("load", () => {
       Spotify.getAccessToken();
     });
-  }
+  } */
 }
 
 export default App;
