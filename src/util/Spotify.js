@@ -112,6 +112,7 @@ const Spotify = {
         });
     });
 
+    // old code prior to refactoring into getCurrentUserId()
     /*     let userId;
 
     return fetch("https://api.spotify.com/v1/me", {
