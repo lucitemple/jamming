@@ -42,12 +42,11 @@ const Spotify = {
       .then((response) => response.json())
       .then((jsonResponse) => {
         userId = jsonResponse.id;
-        console.log(`line 45 ${userId}`); //prints after error messages
-         return userId;
+        return userId;
       })
       .catch(function (err) {
         console.log("Fetch problem line 49: " + err.message); //doesn't print
-      });;
+      });
   },
 
   getUserPlaylists() {},
@@ -86,9 +85,8 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    Spotify.getCurrentUserId().then((response) => {
+    return Spotify.getCurrentUserId().then((response) => {
       userId = response;
-      console.log(`line 91 ${userId}`); // prints after error messages
       return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
         headers: headers,
         method: "POST",
@@ -97,7 +95,6 @@ const Spotify = {
         .then((response) => response.json())
         .then((jsonResponse) => {
           const playlistId = jsonResponse.id;
-          console.log(`line 100 ${playlistId}`); //prints after error messages
           return fetch(
             `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
             {
@@ -108,37 +105,9 @@ const Spotify = {
           );
         })
         .catch(function (err) {
-          console.log("Fetch problem: " + err.message); //doesn't print
+          console.log("Fetch problem: ", err.message);
         });
     });
-
-    // old code prior to refactoring into getCurrentUserId()
-    /*     let userId;
-
-    return fetch("https://api.spotify.com/v1/me", {
-      headers: headers,
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        userId = jsonResponse.id; */
-
-    /*     return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
-      headers: headers,
-      method: "POST",
-      body: JSON.stringify({ name: name }),
-    })
-      .then((response) => response.json())
-      .then((jsonResponse) => {
-        const playlistId = jsonResponse.id;
-        return fetch(
-          `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
-          {
-            headers: headers,
-            method: "POST",
-            body: JSON.stringify({ uris: trackUris }),
-          }
-        );
-      }); */
   },
 };
 
