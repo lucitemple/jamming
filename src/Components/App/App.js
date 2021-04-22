@@ -42,9 +42,14 @@ class App extends React.Component {
   }
 
   savePlaylist() {
+    console.log(`line 45 App.js`); //printing - before error
     let trackUris = this.state.playlistTracks.map((track) => track.uri);
+    console.log(`line 47 App.js ${trackUris}`); // printing before error
     if (trackUris && trackUris.length) {
+      console.log(`line 49 App.js ${trackUris}`); //printing before error
+      // below line is the problem 'Uncaught TypeError Cannot read property 'then' of undefined
       Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
+        console.log(`line 52 App.js ${trackUris}`); //not printing
         this.setState({
           playlistName: "New Playlist Name",
           playlistTracks: [],
