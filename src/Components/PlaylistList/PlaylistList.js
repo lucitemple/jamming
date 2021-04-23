@@ -1,5 +1,7 @@
 import React from "react";
 import Spotify from "../../util/Spotify";
+import PlaylistItem from "../PlaylistItem/PlaylistItem";
+import "./PlaylistList.css";
 
 export default class PlaylistList extends React.Component {
   constructor(props) {
@@ -13,18 +15,26 @@ export default class PlaylistList extends React.Component {
   }
 
   componentDidMount() {
-      Spotify.getUserPlaylists().then(playlists => {
-          this.setState({playslists: playlists});
-          console.log(playlists);
-      });
-      
+    Spotify.getUserPlaylists().then((playlists) => {
+      this.setState({ playslists: playlists });
+      console.log(playlists);
+    });
   }
 
   render() {
     return (
       <div className="PlaylistList">
         <h2>Your Playlists</h2>
-        {this.playlists}
+        <>
+        {this.state.playlists.map((playlist) => {
+          return (
+            <PlaylistItem
+              playlistName={playlist.playlistName}
+              playlistId={playlist.playlistId}
+            />
+          );
+        })}
+        </>
       </div>
     );
   }
