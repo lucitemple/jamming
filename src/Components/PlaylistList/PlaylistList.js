@@ -16,21 +16,21 @@ export default class PlaylistList extends React.Component {
 
   componentDidMount() {
     Spotify.getUserPlaylists().then((playlists) => {
-      this.setState({ playslists: playlists });
-      console.log(playlists);
+      this.setState({ playlists });
     });
   }
 
   render() {
+
     return (
       <div className="PlaylistList">
         <h2>Your Playlists</h2>
         <>
-        {this.state.playlists.map((playlist) => {
+        {this.state.playlists && this.state.playlists.map((playlist) => {
           return (
             <PlaylistItem
-              playlistName={playlist.playlistName}
-              playlistId={playlist.playlistId}
+              name={playlist.playlistName}
+              key={playlist.playlistId}
             />
           );
         })}
