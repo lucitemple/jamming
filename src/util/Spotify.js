@@ -32,12 +32,11 @@ const Spotify = {
     }
 
     const accessToken = Spotify.getAccessToken();
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
 
     return fetch("https://api.spotify.com/v1/me", {
-      headers: headers,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     })
       .then((response) => response.json())
       .then((jsonResponse) => {
@@ -45,11 +44,34 @@ const Spotify = {
         return userId;
       })
       .catch(function (err) {
-        console.log("Fetch problem line 49: " + err.message); //doesn't print
+        console.log("Fetch problem line 49: " + err.message);
       });
   },
 
-  getUserPlaylists() {},
+  getUserPlaylists() {
+    const accessToken = Spotify.getAccessToken();
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+
+    return Spotify.getCurrentUserId().then((response) => {
+      userId = response;
+      return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+        headers: headers,
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((jsonResponse) => {
+          if (!jsonResponse.items) {
+            return [];
+          }
+          return jsonResponse.items.map((playlist) => ({
+            playlistName: playlist.name,
+            playlistId: playlist.id,
+          }));
+        });
+    });
+  },
 
   search(term) {
     const accessToken = Spotify.getAccessToken();
