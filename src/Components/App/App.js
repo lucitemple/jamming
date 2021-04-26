@@ -14,13 +14,25 @@ class App extends React.Component {
       searchResults: [],
       playlistName: "New Playlist Name",
       playlistTracks: [],
-      //playlists: [], // array of objects to store each playlist's playlistId and playlistName
+      playlists: [], // array of objects to store each playlist's playlistId and playlistName
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.getUserPlaylists = this.getUserPlaylists.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserPlaylists();
+  }
+
+  getUserPlaylists() {
+    Spotify.getUserPlaylists().then((playlists) => {
+      this.setState({ playlists });
+    });
+    console.log(this.state.playlists);
   }
 
   addTrack(track) {
@@ -87,7 +99,7 @@ class App extends React.Component {
             />
             
           </div>
-          <PlaylistList />
+          <PlaylistList playlists={this.state.playlists}/>
         </div>
       </div>
     );
