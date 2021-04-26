@@ -54,16 +54,14 @@ const Spotify = {
       Authorization: `Bearer ${accessToken}`,
     };
 
-    return Spotify.getCurrentUserId().then((response) => {
+    return Promise.resolve(Spotify.getCurrentUserId()).then((response) => {
       userId = response;
-      console.log("test"); //prints before error on load
       return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
         headers: headers,
         method: "GET",
       })
         .then((response) => response.json())
         .then((jsonResponse) => {
-          console.log("test2"); //prints before error on load
           if (!jsonResponse.items) {
             return [];
           }
@@ -108,13 +106,8 @@ const Spotify = {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
-    console.log(accessToken); // prints before error
-    console.log(userId); // prints "12174384609" (before error), drawing on global scope
-    console.log(Spotify.getCurrentUserId()); // prints "12174384609" (before error)
-    // below line gets a "Uncaught TypeError: Spotify.getCurrentUserId(...).then is not a function at Object.getUserPlaylists" Object.savePlayList / warning
     return Promise.resolve(Spotify.getCurrentUserId()).then((response) => {
       userId = response;
-      console.log(userId); // prints
       return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
         headers: headers,
         method: "POST",
@@ -123,7 +116,6 @@ const Spotify = {
         .then((response) => response.json())
         .then((jsonResponse) => {
           const playlistId = jsonResponse.id;
-          console.log(playlistId); // doesn't print
           return fetch(
             `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`,
             {

@@ -32,7 +32,6 @@ class App extends React.Component {
     Spotify.getUserPlaylists().then((playlists) => {
       this.setState({ playlists });
     });
-    console.log(this.state.playlists);
   }
 
   addTrack(track) {
@@ -58,13 +57,13 @@ class App extends React.Component {
   savePlaylist() {
     let trackUris = this.state.playlistTracks.map((track) => track.uri);
     if (trackUris && trackUris.length) {
-      // below line gets an "Uncaught TypeError:  Spotify.getCurrentUserId(...).then is not a function" breaks the website & doesn't save to spotify
       Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
         this.setState({
           playlistName: "New Playlist Name",
           playlistTracks: [],
         });
       });
+      this.getUserPlaylists();
     } else {
       alert("Your playlist is empty! Please add tracks.");
     }
@@ -104,12 +103,6 @@ class App extends React.Component {
       </div>
     );
   }
-  // This forces login to Spotify on mount, to prevent the search loading issue.
-  /*   componentDidMount() {
-    window.addEventListener("load", () => {
-      Spotify.getAccessToken();
-    });
-  } */
 }
 
 export default App;
