@@ -2,7 +2,7 @@ let accessToken;
 let userId;
 const clientId = `${process.env.REACT_APP_SPOTIFY_CLIENT_ID}`;
 const redirectUri =
-  /* "https://lucitemple.github.io/jamming/" */ "http://localhost:3000"; // Must match spotify app setting exactly & include trailing slash.
+  "https://lucitemple.github.io/jamming/" // "http://localhost:3000"; // Must match spotify app setting exactly & include trailing slash.
 
 const Spotify = {
   getAccessToken() {
