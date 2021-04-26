@@ -46,7 +46,8 @@ class App extends React.Component {
   savePlaylist() {
     let trackUris = this.state.playlistTracks.map((track) => track.uri);
     if (trackUris && trackUris.length) {
-      return Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
+      // below line gets an "Uncaught TypeError:  Spotify.getCurrentUserId(...).then is not a function" breaks the website & doesn't save to spotify
+      Spotify.savePlayList(this.state.playlistName, trackUris).then(() => {
         this.setState({
           playlistName: "New Playlist Name",
           playlistTracks: [],

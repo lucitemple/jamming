@@ -44,7 +44,7 @@ const Spotify = {
         return userId;
       })
       .catch(function (err) {
-        console.log("Fetch problem line 49: " + err.message);
+        console.log("Fetch problem line 47: " + err.message);
       });
   },
 
@@ -106,7 +106,10 @@ const Spotify = {
     const headers = {
       Authorization: `Bearer ${accessToken}`,
     };
+ /*    const userId = Spotify.getCurrentUserId().then((response) => {
+      return response;}), */
 
+    // below line gets a "Uncaught TypeError: Spotify.getCurrentUserId(...).then is not a function at Object.getUserPlaylists" Object.savePlayList / warning
     return Spotify.getCurrentUserId().then((response) => {
       userId = response;
       return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
