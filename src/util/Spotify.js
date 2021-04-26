@@ -112,9 +112,9 @@ const Spotify = {
     console.log(userId); // prints "12174384609" (before error), drawing on global scope
     console.log(Spotify.getCurrentUserId()); // prints "12174384609" (before error)
     // below line gets a "Uncaught TypeError: Spotify.getCurrentUserId(...).then is not a function at Object.getUserPlaylists" Object.savePlayList / warning
-    return Spotify.getCurrentUserId().then((response) => {
+    return Promise.resolve(Spotify.getCurrentUserId()).then((response) => {
       userId = response;
-      console.log(userId); // doesn't print
+      console.log(userId); // prints
       return fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
         headers: headers,
         method: "POST",
