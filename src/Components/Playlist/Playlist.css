@@ -48,5 +48,6 @@
 @media only screen and (max-width: 1020px) {
   .Playlist {
     width: 90%;
+    margin-bottom: 2rem;
   }
 }

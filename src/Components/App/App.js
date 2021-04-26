@@ -4,6 +4,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import SearchResults from "../SearchResults/SearchResults";
 import Playlist from "../Playlist/Playlist";
 import Spotify from "../../util/Spotify";
+import PlaylistList from "../PlaylistList/PlaylistList";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,12 +14,24 @@ class App extends React.Component {
       searchResults: [],
       playlistName: "New Playlist Name",
       playlistTracks: [],
+      playlists: [], // array of objects to store each playlist's playlistId and playlistName
     };
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+    this.getUserPlaylists = this.getUserPlaylists.bind(this);
+  }
+
+  componentDidMount() {
+    this.getUserPlaylists();
+  }
+
+  getUserPlaylists() {
+    Spotify.getUserPlaylists().then((playlists) => {
+      this.setState({ playlists });
+    });
   }
 
   addTrack(track) {
@@ -50,6 +63,7 @@ class App extends React.Component {
           playlistTracks: [],
         });
       });
+      this.getUserPlaylists();
     } else {
       alert("Your playlist is empty! Please add tracks.");
     }
@@ -82,17 +96,13 @@ class App extends React.Component {
               onNameChange={this.updatePlaylistName}
               onSave={this.savePlaylist}
             />
+            
           </div>
+          <PlaylistList playlists={this.state.playlists}/>
         </div>
       </div>
     );
   }
-  // This forces login to Spotify on mount, to prevent the search loading issue.
-/*   componentDidMount() {
-    window.addEventListener("load", () => {
-      Spotify.getAccessToken();
-    });
-  } */
 }
 
 export default App;

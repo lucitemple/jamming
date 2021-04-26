@@ -1,5 +1,5 @@
 {
-  "homepage": "https://lucitemple.github.io/jamming/",
+  "homepage": "https://localhost:3000", 
   "name": "jamming",
   "version": "0.1.0",
   "private": true,
